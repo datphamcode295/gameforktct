@@ -14,24 +14,50 @@ class Home extends Component {
         }
         componentWillMount() {
             
-            firebase.auth().onAuthStateChanged((user)=>{
-                if(user)
-                if(user.uid){
+            // firebase.auth().onAuthStateChanged((user)=>{
+            //     if(user)
+            //     if(user.uid){
                     
-                    this.setState({id: user.uid});
+            //         this.setState({id: user.uid});
                
-                }
-            });
+            //     }
+            // });
         }
-    
+        // componentDidUnmount (){
+        //     const db = firebase.firestore();
+        //     if(this.state.id){
+
+        //     db.collection("users").doc(this.state.id).onSnapshot((snapshot)=>{
+        //         this.setState({score : snapshot.data().score});
+        //     })} }
+        // componentDidUpdate (){
+        //     const db = firebase.firestore();
+        //     if(this.state.id){
+
+        //     db.collection("users").doc(this.state.id).onSnapshot((snapshot)=>{
+        //         this.setState({score : snapshot.data().score});
+        //     })} }
+        firebase.auth().onAuthStateChanged((user)=>{
+
+            this.setState({id: user.uid});
+            console.log(user.uid)
+        });
    render() {
     
 
     const db = firebase.firestore();
+    firebase.auth().onAuthStateChanged((user)=>{
+
+        this.setState({id: user.uid});
+        console.log(user.uid)
+    })
     if(this.state.id){
         db.collection("users").doc(this.state.id)
          .onSnapshot((doc) => {
+             
             this.setState({score : doc.data().score});
+            this.setState({name : doc.data().name});
+            
              //this.setState(score = doc)
          } )
     }
@@ -45,10 +71,23 @@ class Home extends Component {
         this.setState({answer :e.target.value}); 
     }
     const updateAnswer = () => {
-        
+        const db = firebase.firestore();
+        db.collection("users").doc(this.state.id).update({
+        name : this.state.name,
+        answer : this.state.answer,
+        score : this.state.score,
+    });
     }
+  
+    // if(this.state.id){
+    //     db.collection("users").doc(this.state.id).onSnapshot((doc => {
+    //         console.log("Current data: ", doc.data());
+    //     }))
     
-    const showScore =  'Diem cua ban : ' +  this.state.score  ;
+    // }
+    const showScore =   'Diem cua ban : ' +  this.state.score  ;
+    
+    
 
     return (
         <div>
@@ -58,7 +97,7 @@ class Home extends Component {
                 
                 <div className = "question"> Question</div>
                 <div className="answer">
-                <input type="text" onChange={handleOnChange} value={this.state.name} placeholder="Nhập Answer"></input>
+                <input type="text" onChange={handleOnChange} value={this.state.answer} placeholder="Nhập Answer"></input>
                 <button onClick={updateAnswer}>Answer !!!</button>
     
             </div>

@@ -14,14 +14,7 @@ class Home extends Component {
         }
        // componentWillMount() {
           componentDidMount(){  
-            // firebase.auth().onAuthStateChanged((user)=>{
-            //     if(user)
-            //     if(user.uid){
-                    
-            //         this.setState({id: user.uid});
-               
-            //     }
-            // });
+         
             const db = firebase.firestore();
 
             firebase.auth().onAuthStateChanged((user)=>{
@@ -34,57 +27,17 @@ class Home extends Component {
                     this.setState({score : doc.data().score});
                     this.setState({name : doc.data().name});
                     console.log("Current data: ", doc.data());
-                    
-                     //this.setState(score = doc)
                  } )
             });
-            // if(this.state.id){
-            //     db.collection("users").doc(this.state.id)
-            //      .onSnapshot((doc) => {
-                     
-            //         this.setState({score : doc.data().score});
-            //         this.setState({name : doc.data().name});
-            //         console.log("Current data: ", doc.data());
-                    
-            //          //this.setState(score = doc)
-            //      } )
-            // }
+           
             
         }
-        // componentDidUnmount (){
-        //     const db = firebase.firestore();
-        //     if(this.state.id){
-
-        //     db.collection("users").doc(this.state.id).onSnapshot((snapshot)=>{
-        //         this.setState({score : snapshot.data().score});
-        //     })} }
-        // componentDidUpdate (){
-        //     const db = firebase.firestore();
-        //     if(this.state.id){
-
-        //     db.collection("users").doc(this.state.id).onSnapshot((snapshot)=>{
-        //         this.setState({score : snapshot.data().score});
-        //     })} }
+        
         
    render() {
     
 
-    //const db = firebase.firestore();
-    // firebase.auth().onAuthStateChanged((user)=>{
-
-    //     this.setState({id: user.uid});
-    //     console.log(user.uid)
-    // })
-    // if(this.state.id){
-    //     db.collection("users").doc(this.state.id)
-    //      .onSnapshot((doc) => {
-             
-    //         this.setState({score : doc.data().score});
-    //         this.setState({name : doc.data().name});
-            
-    //          //this.setState(score = doc)
-    //      } )
-    // }
+    
      
     
     const signOutbt = ()=>{
@@ -103,12 +56,7 @@ class Home extends Component {
     });
     }
   
-    // if(this.state.id){
-    //     db.collection("users").doc(this.state.id).onSnapshot((doc => {
-    //         console.log("Current data: ", doc.data());
-    //     }))
     
-    // }
     const showScore =   'Diem cua ban : ' +  this.state.score  ;
     
     
